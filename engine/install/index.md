@@ -39,13 +39,13 @@ your preferred operating system below.
 Docker provides `.deb` and `.rpm` packages from the following Linux distributions
 and architectures:
 
-| Platform              | x86_64 / amd64         | ARM                      | ARM64 / AARCH64        | IBM Power (ppc64le)    | IBM Z (s390x)          |
-|:----------------------|:-----------------------|:-------------------------|:-----------------------|:-----------------------|:-----------------------|
-| [CentOS](centos.md)   | [{{ yes }}](centos.md) |                          | [{{ yes }}](centos.md) |                        |                        |
-| [Debian](debian.md)   | [{{ yes }}](debian.md) | [{{ yes }}](debian.md)   | [{{ yes }}](debian.md) |                        |                        |
-| [Fedora](fedora.md)   | [{{ yes }}](fedora.md) |                          | [{{ yes }}](fedora.md) |                        |                        |
-| [Raspbian](debian.md) |                        | [{{ yes }}](debian.md)   | [{{ yes }}](debian.md) |                        |                        |
-| [Ubuntu](ubuntu.md)   | [{{ yes }}](ubuntu.md) | [{{ yes }}](ubuntu.md)   | [{{ yes }}](ubuntu.md) | [{{ yes }}](ubuntu.md) | [{{ yes }}](ubuntu.md) |
+| Platform              | x86_64 / amd64         | ARM                      | ARM64 / AARCH64        |
+|:----------------------|:-----------------------|:-------------------------|:-----------------------|
+| [CentOS](centos.md)   | [{{ yes }}](centos.md) |                          | [{{ yes }}](centos.md) |
+| [Debian](debian.md)   | [{{ yes }}](debian.md) | [{{ yes }}](debian.md)   | [{{ yes }}](debian.md) |
+| [Fedora](fedora.md)   | [{{ yes }}](fedora.md) |                          | [{{ yes }}](fedora.md) |
+| [Raspbian](debian.md) |                        | [{{ yes }}](debian.md)   | [{{ yes }}](debian.md) |
+| [Ubuntu](ubuntu.md)   | [{{ yes }}](ubuntu.md) | [{{ yes }}](ubuntu.md)   | [{{ yes }}](ubuntu.md) |
 
 ##### Other Linux distributions
 
@@ -122,7 +122,7 @@ These builds allow for testing from the latest code on the master branch.
 ## Support
 
 Docker Engine releases of a year-month branch are supported with patches as
-needed for one month after the the next year-month general availability release.
+needed for one month after the next year-month general availability release.
 
 This means bug reports and backports to release branches are assessed
 until the end-of-life date.

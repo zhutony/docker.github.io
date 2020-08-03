@@ -1,19 +1,10 @@
-$light-blue: #2496ed;
 $dark-blue: #002c66;
-$bg-header-night: #101c29;
-$bg-body-night: #061F2F;
 $bg-card-night: #0F161E;
 
-body#landing {
-  background-color: $bg-sidebar;
-  color: $body-text-color;
-  font-size: $body-text-size;
-  margin: $clear;
-  padding: $clear;
-  overflow-x: hidden;
+body.landing {
 
   h2, h5, h6 {
-    font-family: 'Geomanist Regular';
+    font-family: 'Geomanist Regular', sans-serif;
   }
 
   section {
@@ -22,11 +13,6 @@ body#landing {
   }
 
   .header {
-    background-color: $light-blue;
-    border: unset;
-    border-radius: unset;
-    height: unset;
-
     @include md-width {
       .navbar-collapse.collapse {
         display: flex !important;
@@ -111,40 +97,79 @@ body#landing {
         outline: none;
       }
     }
+
+    #autocompleteResults {
+      left: 10px;
+      right: 10px;
+      width: unset;
+
+      @include before-lg-width {
+          padding: 0;
+      }
+    }
   }
 
   .card-holder {
     padding: 7.5px;
   }
 
-  .card {
-    background-color: $bg-body;
-    box-shadow: 0px 3px 6px rgba(11, 33, 74, 0.09),
-      0px -2px 2px rgba(11, 33, 74, 0.03);
-    padding: 24px 36px;
-    min-height: 200px;
+  .video-item {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-top: 6.5px;
+    margin-bottom: 6.5px;
 
-    @include sm-width {
-      min-height: 230px;
+    .video-image {
+      margin-right: 13px;
     }
 
-    img {
-      height: 35px;
-      margin-bottom: 5px;
+    .video-title {
+      flex: 1;
+    }
+  }
 
-      @include sm-width {
-        height: 40px;
-        margin-bottom: 6px;
-      }
+  %icon-card {
+    background-image:  none;
+    background-origin: content-box;
+    background-repeat: no-repeat;
+    background-size:   auto 35px;
 
-      @include md-width {
-        height: 50px;
-        margin-bottom: 8px;
-      }
+    @include sm-width { background-size: auto 40px; min-height: 220px; }
+    @include md-width { background-size: auto 50px }
+    @include lg-width { background-size: auto 60px }
 
-      @include lg-width {
-        height: 60px;
-        margin-bottom: 10px;
+    .title {
+      margin-top: 0;
+      margin-left: 60px;
+      @include sm-width { margin-left: 0; margin-top: 60px }
+      @include md-width { margin-left: 0; margin-top: 72px }
+      @include lg-width { margin-left: 0; margin-top: 90px }
+    }
+
+    p {
+      margin-left: 60px;
+      @include sm-width { margin-left: 0 }
+    }
+  }
+
+  $icons: rocket, download-docker, guides, whats-new, manuals, reference;
+
+  .card {
+    background-color: $bg-body;
+    box-shadow: 0 3px 6px rgba(11, 33, 74, 0.09),
+      0 -2px 2px rgba(11, 33, 74, 0.03);
+    padding: 24px 36px;
+    min-height: 100px;
+
+    @include sm-width {
+      min-height: 185px;
+    }
+
+    @each $icon in $icons {
+      &.#{$icon} {
+        @extend %icon-card;
+        background-image: url("/images/#{$icon}.svg");
       }
     }
 
@@ -191,6 +216,13 @@ body#landing {
       opacity: 1;
       transform: scale(1.01);
     }
+
+    &[target=_blank] {
+      background-image:    url(/images/arrow.svg);
+      background-position: top 10px right 10px;
+      background-repeat:   no-repeat;
+      background-size:     15px 15px;
+    }
   }
 
   .cardlet {
@@ -198,7 +230,7 @@ body#landing {
     padding: 24px 36px;
 
     .title {
-      font-family: 'Geomanist Book';
+      font-family: 'Geomanist Book', sans-serif;
       line-height: 22px;
       font-size: 22px;
     }
@@ -238,7 +270,7 @@ body#landing {
       a.btn {
         background-color: #FF3F73;
         color: white;
-        font-family: 'Open Sans';
+        font-family: 'Open Sans', sans-serif;
         font-size: 17px;
         font-weight: bold;
         padding: 20px 60px;
@@ -274,12 +306,12 @@ body#landing {
 
   .help-by-product {
     .title {
-      font-family: 'Geomanist Book';
+      font-family: 'Geomanist Book', sans-serif;
       font-size: 22px;
     }
 
     ul.nav.nav-tabs li a, h5, h6 {
-      font-family: 'Geomanist Regular';
+      font-family: 'Geomanist Regular', sans-serif;
       font-size: 18px;
     }
 
@@ -288,6 +320,8 @@ body#landing {
 
       li a {
         cursor: pointer;
+        padding: 10px 3px;
+        @include sm-width { padding: 10px 15px; }
       }
 
       li.active a {
@@ -332,30 +366,6 @@ body#landing {
     }
   }
 
-  #community-resources,
-  #play-with-docker {
-    .card {
-      position: relative;
-      min-height: 200px;
-
-      &::after {
-        content: '';
-        background-image: url(/images/arrow.svg);
-        background-size: contain;
-        background-repeat: no-repeat;
-        position: absolute;
-        top: 10px;
-        right: 10px;
-        width: 15px;
-        height: 15px;
-      }
-
-      @include sm-width {
-        min-height: 185px;
-      }
-    }
-  }
-
   footer.footer {
     background-color: $dark-blue;
     margin-top: 130px;
@@ -366,14 +376,11 @@ body#landing {
   }
 }
 
-body#landing.night {
-  background-color: $bg-body-night;
-  color: $body-text-color-night;
+body.landing:not(.night) {
+  background-color: $bg-sidebar;
+}
 
-  .header {
-    background-color: $bg-body-night;
-  }
-
+body.landing.night {
   .card {
     background-color: $bg-card-night;
   }

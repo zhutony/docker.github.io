@@ -4,7 +4,6 @@ keywords: Docker, docker, registry, teams, organizations, plans, Dockerfile, Doc
 title: Teams and Organizations
 redirect_from:
 - /docker-cloud/orgs/
-- /docker-hub/convert-account/
 ---
 
 Docker Hub organizations let you create teams so you can give your team access
@@ -16,9 +15,13 @@ to shared image repositories.
 > **Note:** in Docker Hub, users cannot belong directly to an organization.
 They belong only to teams within an organization.
 
+<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/G7lvSnAqed8" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 ## Working with organizations
 
 ### Create an organization
+
+<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/b0TKcIqa9Po" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 1. Start by clicking on **[Organizations](https://hub.docker.com/orgs)** in
 Docker Hub.
@@ -56,7 +59,11 @@ If you don't see the organization, then you are neither a member or an owner of 
 
 ## Working with teams and members
 
+<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/MROKmtmWCVI" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 ### Create a team
+
+<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/78wbbBoasIc" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 1. Go to **Organizations** in Docker Hub, and select your organization.
 

@@ -77,10 +77,6 @@
   develop, ship, and run applications
   - The docker daemon process running on the host which manages images and containers
   (also called Docker Engine)
-<a class="glossary" name="docker_enterprise">Docker Enterprise</a>: |
-  Docker Enterprise is a platform to build, ship, and run containerized applications, that 
-  you can deploy in the cloud or on-premise. It includes a tested and certified version of Docker, 
-  web UIs for managing your app resources, and support.
 <a class="glossary" name="docker_desktop_for_mac">Docker Desktop for Mac</a>: |
   [Docker Desktop for Mac](/docker-for-mac/) is an easy-to-install, lightweight
   Docker development environment designed specifically for the Mac. A native
@@ -193,8 +189,7 @@
   a namespace can only interact with resources or processes that are part of the same namespace. Namespaces
   are an important part of Docker's isolation model. Namespaces exist for each type of
   resource, including `net` (networking), `mnt` (storage), `pid` (processes), `uts` (hostname control),
-  and `user` (UID mapping). For more information about namespaces, see [Docker run reference](/engine/reference/run/)
-  and [Introduction to user namespaces](https://success.docker.com/KBase/Introduction_to_User_Namespaces_in_Docker_Engine).
+  and `user` (UID mapping). For more information about namespaces, see [Docker run reference](/engine/reference/run/) and [Isolate containers with a user namespace](/engine/security/userns-remap/).
 <a class="glossary" name="node">node</a>: |
   A [node](/engine/swarm/how-swarm-mode-works/nodes/) is a physical or virtual
   machine running an instance of the Docker Engine in [swarm mode](#swarm_mode).

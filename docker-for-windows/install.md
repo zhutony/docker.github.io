@@ -19,7 +19,9 @@ By downloading Docker Desktop, you agree to the terms of the [Docker Software En
 
 ### System Requirements
 
-  - Windows 10 64-bit: Pro, Enterprise, or Education (Build 15063 or later).
+  - Windows 10 64-bit: Pro, Enterprise, or Education (Build 16299 or later).
+  
+    For Windows 10 Home, see [Install Docker Desktop on Windows Home](install-windows-home.md).
   - Hyper-V and Containers Windows features must be enabled.
   - The following hardware prerequisites are required to successfully run Client
 Hyper-V on Windows 10:
@@ -48,8 +50,6 @@ Nested virtualization scenarios, such as running Docker Desktop on a
 VMWare or Parallels instance might work, but there are no guarantees. For
 more information, see [Running Docker Desktop in nested virtualization scenarios](troubleshoot.md#running-docker-desktop-for-windows-in-nested-virtualization-scenarios).
 
-**Note**: Refer to the [Docker compatibility matrix](https://success.docker.com/article/compatibility-matrix) for complete Docker compatibility information with Windows Server.
-
 ### About Windows containers
 
 Looking for information on using Windows containers?
@@ -76,6 +76,11 @@ Looking for information on using Windows containers?
 3. Follow the instructions on the installation wizard to authorize the installer and proceed with the install.
 
 4. When the installation is successful, click **Close** to complete the installation process.
+
+5. If your admin account is different to your user account, you must add the user to 
+the **docker-users** group. Run **Computer Management** as an administrator and navigate to 
+**Local Users and Groups** > **Groups** > **docker-users**. Right-click to add the user to the group.
+Log out and log back in for the changes to take effect.
 
 ## Start Docker Desktop
 
@@ -118,6 +123,8 @@ not work after you switch back to Stable because they may have been created
 using Edge features that aren't in Stable yet. Keep this in mind as
 you create and work with Edge containers, perhaps in the spirit of a playground
 space where you are prepared to troubleshoot or start over.
+
+Experimental features are turned on by default on Edge releases. However, when you switch from a Stable to an Edge release, you must turn on the experimental features flag to access experimental features. From the Docker Desktop menu, click **Settings** > **Command Line** and then turn on the **Enable experimental features** toggle. Click **Apply & Restart** for the changes to take effect.
 
 To safely switch between Edge and Stable versions, ensure you save images and export the containers you need, then uninstall the current version before installing another. For more information, see the section _Save and Restore data_ below.
 

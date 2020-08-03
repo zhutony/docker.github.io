@@ -57,7 +57,13 @@ redirect_from:
 
 {% include_relative nav.html selected="1" %}
 
-Welcome! We are excited that you want to learn Docker. The Docker Quickstart training module teaches you how to:
+Welcome! We are excited that you want to learn Docker.
+
+This page contains step-by-step instructions on how to get started with Docker. We also recommend the video walkthrough from Dockercon 2020.
+
+<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/iqqDU2crIEQ?start=30" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+The Docker Quickstart training module teaches you how to:
 
 1.  Set up your Docker environment (on this page)
 
@@ -120,7 +126,7 @@ After you've successfully installed Docker Desktop, open a terminal and run `doc
 
 ```shell
 $ docker --version
-Docker version 19.03.5, build 633a0ea
+Docker version 19.03.12, build 48a66213fe
 ```
 
 ### Test Docker installation

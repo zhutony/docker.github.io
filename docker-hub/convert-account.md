@@ -9,7 +9,6 @@ You can convert an existing user account to an organization. You might want to d
 > **Note:**
 >
 > Once you convert your account to an organization, you can’t revert it to a user account, so make sure you really want to convert the user account.
-{: .warning }
 
 ## Prerequisites
 
@@ -45,7 +44,9 @@ Before you convert a user account to an organization, ensure that you have compl
 
 >**Note:**
 >
->Note: When you convert a Pro or a legacy individual repository plan to an organization, the account will be migrated to a Team plan and will be charged $35 per month for 5 seats. For more information, see [Docker Hub Pricing](https://hub.docker.com/pricing).
+> When you convert a Pro or a legacy individual repository plan to an organization, the account
+will be migrated to a Team plan and will be charged $35 per month for 5 seats. For more information,
+see [Docker Hub Pricing](https://hub.docker.com/pricing).
 
 1. Ensure you have removed your user account from all teams and organizations and that you have a new Docker ID before you convert an account. See the [Prerequisites](#prerequisites) section for details.
 
@@ -59,4 +60,4 @@ Before you convert a user account to an organization, ensure that you have compl
 
 6. Click **Convert** to confirm. The new owner will receive a notification email. Use that owner account to log into your new organization.
 
-        Your Pro user account has now been converted to an organization.
+    Your Pro user account has now been converted to an organization.

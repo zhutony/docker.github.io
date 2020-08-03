@@ -14,65 +14,7 @@
                             <blockquote>{{ site.data.advisories.texts[page.advisory] | markdownify }}</blockquote>
                             {% endif %}{% endif %}
                             {% unless page.tree == false or page.skip_read_time == true %}{% include read_time.html %}{% endunless %}
-                            {% if page.enterprise %}{% include ee_dropdown.html %}{% endif %}
-                            {% if page.ui_tabs or page.cli_tabs or page.api_tabs %}
-                            {% capture content %}
-
-                            {% if page.intro %}{{ page.intro | markdownify }}{% else %}{{ page.description | markdownify }}{% endif %}
-
-                            {% if page.ui_tabs %}
-                            <ul class="nav nav-tabs">{% for tab in page.ui_tabs %}
-                                <li{% if forloop.first %} class="active" {% endif %}><a data-toggle="tab"
-                                        data-target="#ui-{{ tab.version | slugify }}"
-                                        id="ui-tabheader-{{ tab.version | slugify }}">{{ site.tablabels[tab.version] }}{% if tab.orhigher %}
-                                        (or higher){% endif %}{% if tab.orlower %} (or lower){% endif %}</a></li>
-                                    {% endfor %}
-                            </ul>
-                            <div class="tab-content">{% for tab in page.ui_tabs %}
-                                <div id="ui-{{ tab.version | slugify }}"
-                                    class="tab-pane fade{% if forloop.first %} in active{% endif %}">
-                                    {% capture thistab %}{% include_relative {{ page.path | split: "/" | last }} version=tab.version ui="true" %}{% endcapture %}{{ thistab | split: "---" | shift:2 | join: "---" | markdownify }}
-                                </div>{% endfor %}
-                            </div>
-                            {% endif %}
-                            {% if page.cli_tabs %}
-                            <ul class="nav nav-tabs">{% for tab in page.cli_tabs %}
-                                <li{% if forloop.first %} class="active" {% endif %}><a data-toggle="tab"
-                                        data-target="#cli-{{ tab.version | slugify }}"
-                                        id="cli-tabheader-{{ tab.version | slugify }}">{{ site.tablabels[tab.version] }}</a>
-                                    </li>{% endfor %}
-                            </ul>
-                            <div class="tab-content">{% for tab in page.cli_tabs %}
-                                <div id="cli-{{ tab.version | slugify }}"
-                                    class="tab-pane fade{% if forloop.first %} in active{% endif %}">
-                                    {% capture thistab %}{% include_relative {{ page.path | split: "/" | last }} version=tab.version cli="true" %}{% endcapture %}{{ thistab | split: "---" | shift:2 | join: "---" | markdownify }}
-                                </div>{% endfor %}
-                            </div>
-                            {% endif %}
-                            {% if page.api_tabs %}
-                            <ul class="nav nav-tabs">{% for tab in page.api_tabs %}
-                                <li{% if forloop.first %} class="active" {% endif %}><a data-toggle="tab"
-                                        data-target="#api-{{ tab.version | slugify }}"
-                                        id="api-tabheader-{{ tab.version | slugify }}">{{ site.tablabels[tab.version] }}</a>
-                                    </li>{% endfor %}
-                            </ul>
-                            <div class="tab-content">{% for tab in page.api_tabs %}
-                                <div id="api-{{ tab.version | slugify }}"
-                                    class="tab-pane fade{% if forloop.first %} in active{% endif %}">
-                                    {% capture thistab %}{% include_relative {{ page.path | split: "/" | last }} version=tab.version api="true" %}{% endcapture %}{{ thistab | split: "---" | shift:2 | join: "---" | markdownify }}
-                                </div>{% endfor %}
-                            </div>
-                            {% endif %}
-                            {% if page.next_steps %}
-                            <h2>Next steps</h2>
-                            <ul>
-                                {% for step in page.next_steps %} <li><a href="{{ step.path }}">{{ step.title }}</a>
-                                </li>
-                                {% endfor %}
-                            </ul>
-                            {% endif %}
-                            {% endcapture %}
-                            {% endif %}
+                            {% if page.enterprise %}{% include enterprise_moved.html %}{% endif %}
                             {{ content }}
                             <!-- tags -->
                             {% unless page.notags == true %}
@@ -91,7 +33,7 @@
                             {% endunless %}
                             {% if page.noratings != true %}
                             <div id="ratings-div"
-                                style="color:#b9c2cc; text-align: center; margin-top: 150px; visibility: hidden">
+                                style="color:#b9c2cc; text-align: center; margin-top: 150px;">
                                 <div id="pd_rating_holder_8453675"></div>
                                 <script type="text/javascript">
                                     PDRTJS_settings_8453675 = {
@@ -126,7 +68,7 @@
                                 <div class="feedback-links">
                                     <ul>
                                         {% if edit_url != "" %}
-                                        <li style="visibility: hidden"><a href="{{ edit_url }}"><i
+                                        <li><a href="{{ edit_url }}"><i
                                                     class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit this
                                                 page</a></li>{% endif %}
                                         <li><a href="https://github.com/docker/docker.github.io/issues/new?body=File: [{{ page.path }}](https://docs.docker.com{{ page.url }})"
@@ -167,7 +109,7 @@
     </div>
 
     {% if page.path == "404.md" %}
-    <script type="text/javascript">
+    <script>
         var path = window.location.pathname.replace("#", "");
         var ghIssueQueryString = "https://github.com/docker/docker.github.io/issues/new?" + "title=404%20at%20" + path + "&body=URL%3A%20" + path;
         document.getElementsByClassName("nomunge")[1].onclick = function () {
@@ -186,31 +128,15 @@
         hljs.initHighlightingOnLoad();
     </script>
     {% endif %}
+    <script>var pageURL = "{{ page.url }}";</script>
     <script defer src="/js/anchorlinks.js"></script>
     <script defer src="/js/menu.js"></script>
     <script src="/js/jquery.js"></script>
     <script src="/js/bootstrap.min.js"></script>
-    <!-- Always include the archive.js, but it doesn't do much unless we are an archive -->
-    <script>
-        // Default to assuming this is an archive and hiding some stuff
-        // See js/archive.js and js/docs.js for logic relating to this
-        var isArchive = true;
-        var dockerVersion = 'v{{ site.docker_ce_version }}';
-        // In archives, we need to know the page root and we get it from JEKYLL_ENV in the jekyll build command
-        var jekyllEnv = '{{ jekyll.environment }}';
-        // If unset (in non-archive branches), defaults to "development". In that case, reset it to empty
-        if (jekyllEnv === 'development') {
-            jekyllEnv = '';
-        }
-        var pageURL = jekyllEnv + '{{ page.url }}';
-    </script>
-    <script src="/js/archive.js"></script>
     <script src="/js/stickyfill.min.js"></script>
     <script defer src="/js/metadata.js"></script>
     <script src="/js/glossary.js"></script>
     <script defer src="/js/docs.js"></script>
     <script defer src="/js/toc.js"></script>
-    <script>
-        jQuery(document).ready(function () { hookupTOCEvents(); });
-    </script>
+    <script defer src="/js/search.js"></script>
 </body>

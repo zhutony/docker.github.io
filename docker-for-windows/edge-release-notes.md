@@ -11,6 +11,96 @@ This page contains information about Docker Desktop Edge releases. Edge releases
 For information about Stable releases, see the [Stable release notes](release-notes.md). For Docker Desktop system requirements, see
 [What to know before you install](install.md#what-to-know-before-you-install).
 
+## Docker Desktop Community 2.3.4.0
+2020-07-28
+
+> [Download](https://desktop.docker.com/win/edge/46980/Docker%20Desktop%20Installer.exe)
+
+### New
+
+- Docker Desktop introduces the new **Images** view to the Docker Dashboard. The Images view allows users to view a list of Docker images on the disk, run an image as a container, pull the latest version of an image from Docker Hub, inspect images, and remove any unwanted images from the disk.
+
+  To access the new Images view, from the Docker menu, select **Dashboard** > **Images**.
+
+### Upgrades
+
+- [Docker ECS integration v1.0.0-beta.4](https://github.com/docker/ecs-plugin/releases/tag/v1.0.0-beta.4){: target="_blank" class="_”}
+- [Kubernetes 1.18.6](https://github.com/kubernetes/kubernetes/releases/tag/v1.18.6){: target="_blank" class="_”}
+
+### Bug fixes and minor changes
+
+- UI changes to dark or light theme depending on Windows default app mode.
+- Copying the container logs from the dashboard does not copy the ANSI color codes to the clipboard anymore.
+
+## Docker Desktop Community 2.3.3.2
+2020-07-21
+
+> [Download](https://desktop.docker.com/win/edge/46784/Docker%20Desktop%20Installer.exe)
+
+### Upgrades
+
+- [Docker ECS integration v1.0.0-beta.2](https://github.com/docker/ecs-plugin/releases/tag/v1.0.0-beta.2){: target="_blank" class="_”}
+- [Docker ACI integration 0.1.10](https://github.com/docker/aci-integration-beta/releases/tag/v0.1.10){: target="_blank" class="_”}
+
+## Docker Desktop Community 2.3.3.1
+2020-07-10
+
+> [Download](https://desktop.docker.com/win/edge/46608/Docker%20Desktop%20Installer.exe)
+
+### Bug fixes and minor changes
+
+- Fixed a bug where the ECS plugin was not visible from WSL 2.
+
+## Docker Desktop Community 2.3.3.0
+2020-07-09
+
+> [Download](https://desktop.docker.com/win/edge/46574/Docker%20Desktop%20Installer.exe)
+
+### Upgrades
+
+- Beta release of [Docker ECS integration v1.0.0-beta.1.](https://docs.docker.com/engine/context/ecs-integration/)
+- [Docker ACI integration v0.1.7](https://github.com/docker/aci-integration-beta/releases/tag/v0.1.7)
+- [Docker Compose 1.26.2](https://github.com/docker/compose/releases/tag/1.26.2)
+
+### Bug fixes and minor changes
+
+- Compose-on-Kubernetes is no longer included in the Docker Desktop installer. You can download it separately from the compose-on-kubernetes [release page](https://github.com/docker/compose-on-kubernetes/releases).
+
+## Docker Desktop Community 2.3.2.1
+2020-06-29
+
+> [Download](https://desktop.docker.com/win/edge/46329/Docker%20Desktop%20Installer.exe)
+
+### Security
+
+- Fixed a regression in Docker Desktop Edge 2.3.2.0 on Windows where the Docker API was exposed by default on a random port on all interfaces.
+
+## Docker Desktop Community 2.3.2.0
+2020-06-25
+
+### Upgrades
+
+- [Docker 19.03.12](https://github.com/docker/docker-ce/releases/tag/v19.03.12)
+- [Docker Compose 1.26.0](https://github.com/docker/compose/releases/tag/1.26.0)
+- [Kubernetes 1.18.3](https://github.com/kubernetes/kubernetes/releases/tag/v1.18.3)
+- Beta release of the [Docker ACI integration](https://docs.docker.com/engine/context/aci-integration/)
+
+### Bug fixes and minor changes
+
+- Fixed application startup if `hosts` is specified inside the Docker `daemon.json`. See [docker/for-win#6895](https://github.com/docker/for-win/issues/6895#issuecomment-637429117).
+- Fixed opening a CLI from the dashboard for Windows containers. See [docker/for-win#7079](https://github.com/docker/for-win/issues/7079).
+- Fixed an issue where adding a folder on a non-existing drive in the settings would create an empty entry. See [docker/for-win#6797](docker/for-win#6797).
+- Fixed an issue when updating Windows to a WSL 2 capable version, where a configuration file is locked by the old Hyper-V VM.
+- Pinning the application to the taskbar and clicking on it will launch the container view if Docker is already running.
+- Left-clicking on the Docker icon in the system tray now launches the container view Dashboard. See [docker/for-win#6650](https://github.com/docker/for-win/issues/6650).
+- Fixed an issue which blocks Docker Desktop startup if `localhost:2375` is used by another program. See [docker/for-win#6929](https://github.com/docker/for-win/issues/6929) and [docker/for-win#6961](https://github.com/docker/for-win/issues/6961).
+- Docker contexts are now synced between Windows and WSL 2 distributions.
+- Docker Desktop now prompts users to share drives for paths like `////c/Users/foo`, rather than only paths like `C:\Users\foo` and `C:/Users/foo`.
+- The installer now returns a non-zero exit code on error or when the user cancels the installation.
+- Avoid failing withFixed an issue which caused Docker Desktop to fail with `Function not implemented` error during file I/O on shared volumes. See [docker/for-win#5955](https://github.com/docker/for-win/issues/5955).
+- Fixed an issue when bind mounting a mounted host directory inside a container. See [docker/for-win#5089](https://github.com/docker/for-win/issues/5089).
+- Removed the legacy Kubernetes context `docker-for-desktop`. The context `docker-desktop` should be used instead. See [docker/for-win#5089](https://github.com/docker/for-win/issues/5089).
+
 ## Docker Desktop Community 2.3.1.0
 2020-05-20
 

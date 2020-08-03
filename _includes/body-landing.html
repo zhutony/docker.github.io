@@ -1,4 +1,4 @@
-<body ng-app="Docker" ng-controller="DockerController" id="landing">
+<body ng-app="Docker" ng-controller="DockerController" id="landing" class="landing">
   <nav class="navbar header">
     <div class="container">
       <div class="navbar-header">
@@ -64,6 +64,7 @@
         action="/search/"
       >
         <input
+          id="st-search-input"
           class="form-control"
           name="q"
           placeholder="Search for guides, terms, commands and more..."
@@ -73,6 +74,9 @@
           dir="auto"
           autofocus
         />
+        <div id="autocompleteContainer">
+          <div id="autocompleteResults"></div>
+        </div>
       </form>
     </div>
   </section>
@@ -80,21 +84,16 @@
   <section class="container">
     <div class="row">
       <div class="col-xs-12 col-sm-6 col-lg-4 card-holder">
-        <a class="card" href="/get-started/">
-          <img src="/images/rocket.svg" alt="get started" />
+        <a class="card rocket" href="/get-started/">
           <h5 class="title">Get started</h5>
           <p>
-            Learn Docker basics and the benefits of containerizing you
+            Learn Docker basics and the benefits of containerizing your
             applications.
           </p>
         </a>
       </div>
       <div class="col-xs-12 col-sm-6 col-lg-4 card-holder">
-        <a class="card" href="/get-docker/">
-          <img
-            src="/images/download-docker.svg"
-            alt="download and install docker"
-          />
+        <a class="card download-docker" href="/get-docker/">
           <h5 class="title">Download and install</h5>
           <p>
             Download and install Docker on your machine in a few easy steps.
@@ -102,18 +101,16 @@
         </a>
       </div>
       <div class="col-xs-12 col-sm-6 col-lg-4 card-holder">
-        <a class="card" href="/develop/">
-          <img src="/images/guides.svg" alt="guides" />
+        <a class="card guides" href="/develop/">
           <h5 class="title">Guides</h5>
           <p>
             Learn how to set up your Docker environment and start containerizing
-            you applications.
+            your applications.
           </p>
         </a>
       </div>
       <div class="col-xs-12 col-sm-6 col-lg-4 card-holder">
-        <a class="card" href="/release-notes/">
-          <img src="/images/whats-new.svg" alt="what's new" />
+        <a class="card whats-new" href="/release-notes/">
           <h5 class="title">What's new?</h5>
           <p>
             Learn about the cool new features, updates, and bug fixes.
@@ -121,8 +118,7 @@
         </a>
       </div>
       <div class="col-xs-12 col-sm-6 col-lg-4 card-holder">
-        <a class="card" href="/engine/">
-          <img src="/images/manuals.svg" alt="products manuals" />
+        <a class="card manuals" href="/engine/">
           <h5 class="title">Product manuals</h5>
           <p>
             Browse through the manuals and learn how to use Docker products.
@@ -130,11 +126,10 @@
         </a>
       </div>
       <div class="col-xs-12 col-sm-6 col-lg-4 card-holder">
-        <a class="card" href="/reference/">
-          <img src="/images/reference.svg" alt="reference" />
+        <a class="card reference" href="/reference/">
           <h5 class="title">Reference</h5>
           <p>
-            Browse through the through the CLI and API reference documentation.
+            Browse through the CLI and API reference documentation.
           </p>
         </a>
       </div>
@@ -144,7 +139,7 @@
   <section class="container">
     <div class="row">
       <div class="col-xs-12 col-lg-8 card-holder">
-        <div class="cardlet container-fluid">
+        <div class="cardlet container-fluid" style="min-height:307px">
           <div class="row">
             <div class="col-xs-12 col-lg-8">
               <h5 class="title">How do I?</h5>
@@ -204,47 +199,11 @@
           </div>
         </div>
       </div>
-      <div class="col-xs-12 col-lg-4 card-holder">
-        <div class="cardlet container-fluid">
-          <div class="row">
-            <div class="col-xs-12">
-              <h5 class="title">Develop with Docker</h5>
-              <p>Learn how to develop language-specific apps using Docker.</p>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-xs-12 col-md-6 col-lg-12">
-              <a href="https://github.com/docker/labs/tree/master/developer-tools/java/" target="_blank">
-                Docker for Java developers
-              </a>
-            </div>
-            <div class="col-xs-12 col-md-6 col-lg-12">
-              <a href="https://github.com/docker/labs/tree/master/developer-tools/nodejs/porting/" target="_blank">
-                Port a node.js app to Docker
-              </a>
-            </div>
-            <div class="col-xs-12 col-md-6 col-lg-12">
-              <a href="https://github.com/docker/labs/tree/master/developer-tools/ruby" target="_blank">
-                Ruby on Rails app on Docker
-              </a>
-            </div>
-            <div class="col-xs-12 col-md-6 col-lg-12">
-              <a href="/engine/examples/dotnetcore/">
-                Dockerize a .Net Core application
-              </a>
-            </div>
-            <div class="col-xs-12 col-md-6 col-lg-12">
-              <a href="/compose/aspnet-mssql-compose/" target="_blank">
-                Dockerize an ASP.NET Core application with SQL Server on Linux
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
+      {% include landing-page/popular-videos.html %}
     </div>
   </section>
 
-  {% include landing-page/dockercon-banner.html %}
+  {% include landing-page/docker-aci.html %}
 
   <section class="container help-by-product">
     <div class="row">
@@ -371,7 +330,7 @@
                 Popular articles
               </h6>
               <p class="only-win">
-                <a href="/docker-for-windows/wsl-tech-preview/">
+                <a href="/docker-for-windows/wsl/">
                   Docker Desktop WSL 2 backend
                 </a>
               </p>
@@ -435,10 +394,10 @@
                   Learn Docker
                 </a>
               </p>
-              <h6>FAQ's</h6>
+              <h6>FAQs</h6>
               <p>
                 <a href="/get-started/part3/">
-                  How do I share images on Docker Hub
+                  How do I share images on Docker Hub?
                 </a>
               </p>
               <p>
@@ -557,7 +516,7 @@
               <p>
                 <a href="/get-started/">Learn Docker</a>
               </p>
-              <h6>FAQ's</h6>
+              <h6>FAQs</h6>
               <p>
                 <a href="/compose/faq/#how-do-i-run-multiple-copies-of-a-compose-file-on-the-same-host">
                   How do I run multiple copies of a Compose file on the same
@@ -640,43 +599,33 @@
                   Docker Security best practices
                 </a>
               </p>
-              <p>
-                <a href="https://success.docker.com/article/logging-best-practices">
-                  Docker Reference architecture: Docker logging design and best
-                  practices
-                </a>
-              </p>
-              <p>
-                <a href="https://success.docker.com/article/networking">
-                  Docker Swarm reference architecture: Exploring scalable,
-                  portable container networks
-                </a>
-              </p>
             </div>
             <div class="col-xs-12 col-md-6">
-              <h2 class="title">Troubleshooting</h2>
+              <h2 class="title">Develop with Docker</h2>
+              <p>Learn how to develop language-specific apps using Docker.</p>
               <p>
-                Refer to our troubleshooting topics to learn how to diagnose and
-                troubleshoot common issues.
-              </p>
-              <p>
-                <a href="/config/daemon/">
-                  Troubleshoot the Docker daemon
+                <a href="https://github.com/docker/labs/tree/master/developer-tools/java/" target="_blank">
+                  Docker for Java developers
                 </a>
               </p>
               <p>
-                <a href="/storage/troubleshooting_volume_errors/">
-                  Troubleshoot volumes or bind mount errors
+                <a href="https://github.com/docker/labs/tree/master/developer-tools/nodejs/porting/" target="_blank">
+                  Port a node.js app to Docker
                 </a>
               </p>
               <p>
-                <a href="https://success.docker.com/article/troubleshooting-container-networking" target="_blank">
-                  Troubleshoot container networking errors
+                <a href="https://github.com/docker/labs/tree/master/developer-tools/ruby" target="_blank">
+                  Ruby on Rails app on Docker
                 </a>
               </p>
               <p>
-                <a href="/docker-for-windows/troubleshoot/">
-                  Docker Desktop logs and troubleshooting
+                <a href="/engine/examples/dotnetcore/">
+                  Dockerize a .Net Core application
+                </a>
+              </p>
+              <p>
+                <a href="/compose/aspnet-mssql-compose/" target="_blank">
+                  Dockerize an ASP.NET Core application with SQL Server on Linux
                 </a>
               </p>
             </div>
@@ -732,8 +681,61 @@
                 </a>
               </p>
             </div>
+            <div class="col-xs-12 col-md-6">
+              <h2 class="title">Troubleshooting</h2>
+              <p>
+                Refer to our troubleshooting topics to learn how to diagnose and
+                troubleshoot common issues.
+              </p>
+              <p>
+                <a href="/config/daemon/">
+                  Troubleshoot the Docker daemon
+                </a>
+              </p>
+              <p>
+                <a href="/storage/troubleshooting_volume_errors/">
+                  Troubleshoot volumes or bind mount errors
+                </a>
+              </p>
+              <p>
+                <a href="/docker-for-windows/troubleshoot/">
+                  Docker Desktop logs and troubleshooting
+                </a>
+              </p>
+            </div>
           </div>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="play-with-docker" class="container">
+    <div class="row">
+      <div class="col-xs-12">
+        <h2 class="title">Play with Docker</h2>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-12 col-sm-6 col-md-4 card-holder">
+        <a href="https://www.docker.com/101-tutorial" class="card" target="_blank">
+          <h5 class="title">Tutorial</h5>
+          <p>Self-paced tutorials to increase your Docker knowledge.</p>
+        </a>
+      </div>
+      <div class="col-xs-12 col-sm-6 col-md-4 card-holder">
+        <a href="https://labs.play-with-docker.com/" class="card" target="_blank">
+          <h5 class="title">Lab Environment</h5>
+          <p>
+            Complete a workshop without installing anything using this Docker
+            playground.
+          </p>
+        </a>
+      </div>
+      <div class="col-xs-12 col-sm-6 col-md-4 card-holder">
+        <a href="/get-started/resources/" class="card">
+          <h5 class="title">Community Training</h5>
+          <p>Free and paid learning materials from Docker Captains.</p>
+        </a>
       </div>
     </div>
   </section>
@@ -801,37 +803,6 @@
     </div>
   </section>
 
-  <section id="play-with-docker" class="container">
-    <div class="row">
-      <div class="col-xs-12">
-        <h2 class="title">Play with Docker</h2>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-xs-12 col-sm-6 col-md-4 card-holder">
-        <a href="https://www.docker.com/101-tutorial" class="card" target="_blank">
-          <h5 class="title">Tutorial</h5>
-          <p>Self-paced tutorials to increase your Docker knowledge.</p>
-        </a>
-      </div>
-      <div class="col-xs-12 col-sm-6 col-md-4 card-holder">
-        <a href="https://labs.play-with-docker.com/" class="card" target="_blank">
-          <h5 class="title">Lab Environment</h5>
-          <p>
-            Complete a workshop without installing anything using this Docker
-            playground.
-          </p>
-        </a>
-      </div>
-      <div class="col-xs-12 col-sm-6 col-md-4 card-holder">
-        <a href="/get-started/resources/" class="card">
-          <h5 class="title">Community Training</h5>
-          <p>Free and paid learning materials from Docker Captains.</p>
-        </a>
-      </div>
-    </div>
-  </section>
-
   <footer class="footer">
     {% include footer.html %}
   </footer>
@@ -839,6 +810,8 @@
   <script src="/js/jquery.js"></script>
   <script src="/js/bootstrap.min.js"></script>
   <script src="/js/landing-page.js"></script>
+  <script defer src="/js/metadata.js"></script>
+  <script defer src="/js/search.js"></script>
 
   <script>
     window.onChangeHelpTab = function (name) {

@@ -22,6 +22,111 @@ for Docker Engine.
 
 # Version 19.03
 
+## 19.03.12
+2020-06-18
+
+### Client
+
+- Fix bug preventing logout from registry when using multiple config files (e.g. Windows vs WSL2 when using Docker Desktop) [docker/cli#2592](https://github.com/docker/cli/pull/2592)
+- Fix regression preventing context metadata to be read [docker/cli#2586](https://github.com/docker/cli/pull/2586)
+- Bump Golang 1.13.12 [docker/cli#2575](https://github.com/docker/cli/pull/2575)
+
+### Networking
+
+- Fix regression preventing daemon start up in a systemd-nspawn environment [moby/moby#41124](https://github.com/moby/moby/pull/41124) [moby/libnetwork#2567](https://github.com/moby/libnetwork/pull/2567)
+- Fix the retry logic for creating overlay networks in swarm [moby/moby#41124](https://github.com/moby/moby/pull/41124) [moby/libnetwork#2565](https://github.com/moby/libnetwork/pull/2565)
+
+### Runtime
+
+- Bump Golang 1.13.12 [moby/moby#41082](https://github.com/moby/moby/pull/41082)
+
+
+## 19.03.11
+2020-06-01
+
+### Network
+
+Disable IPv6 Router Advertisements to prevent address spoofing. [CVE-2020-13401](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2020-13401)
+
+**Description**
+
+In the Docker default configuration, the container network interface is a virtual ethernet link going to the host (veth interface).
+In this configuration, an attacker able to run a process as root in a container can send and receive arbitrary packets to the host using the `CAP_NET_RAW` capability (present in the default configuration).
+
+If IPv6 is not totally disabled on the host (via `ipv6.disable=1` on the kernel cmdline), it will be either unconfigured or configured on some interfaces, but it’s pretty likely that ipv6 forwarding is disabled, that is, `/proc/sys/net/ipv6/conf//forwarding == 0`. Also by default, `/proc/sys/net/ipv6/conf//accept_ra == 1`. The combination of these 2 sysctls means that the host accepts router advertisements and configures the IPv6 stack using them.
+
+By sending “rogue” router advertisements from a container, an attacker can reconfigure the host to redirect part or all of the IPv6 traffic of the host to the attacker-controlled container.
+
+Even if there was no IPv6 traffic before, if the DNS returns A (IPv4) and AAAA (IPv6) records, many HTTP libraries will try to connect via IPv6 first then fallback to IPv4, giving an opportunity to the attacker to respond.
+If by chance the host has a vulnerability like last year’s RCE in apt (CVE-2019-3462), the attacker can now escalate to the host.
+
+As `CAP_NET_ADMIN` is not present by default for Docker containers, the attacker can’t configure the IPs they want to MitM, they can’t use iptables to NAT or REDIRECT the traffic, and they can’t use `IP_TRANSPARENT`.
+The attacker can however still use `CAP_NET_RAW` and implement a tcp/ip stack in user space.
+
+See [kubernetes/kubernetes#91507](https://github.com/kubernetes/kubernetes/issues/91507) for related issues.
+
+## 19.03.10
+2020-05-29
+
+### Client
+- Fix version negotiation with older engine. [docker/cli#2538](https://github.com/docker/cli/pull/2538)
+- Avoid setting SSH flags through hostname. [docker/cli#2560](https://github.com/docker/cli/pull/2560)
+- Fix panic when DOCKER_CLI_EXPERIMENTAL is invalid. [docker/cli#2558](https://github.com/docker/cli/pull/2558)
+- Avoid potential panic on s390x by upgrading Go to 1.13.11. [docker/cli#2532](https://github.com/docker/cli/pull/2532)
+
+### Networking
+- Fix DNS fallback regression. [moby/moby#41009](https://github.com/moby/moby/pull/41009)
+
+### Runtime
+- Avoid potential panic on s390x by upgrading Go to 1.13.11. [moby/moby#40978](https://github.com/moby/moby/pull/40978)
+
+### Packaging
+- Fix ARM builds on ARM64. [moby/moby#41027](https://github.com/moby/moby/pull/41027)
+
+## 19.03.9
+2020-05-14
+
+### Builder
+- buildkit: Fix concurrent map write panic when building multiple images in parallel. [moby/moby#40780](https://github.com/moby/moby/pull/40780)
+- buildkit: Fix issue preventing chowning of non-root-owned files between stages with userns. [moby/moby#40955](https://github.com/moby/moby/pull/40955)
+- Avoid creation of irrelevant temporary files on Windows. [moby/moby#40877](https://github.com/moby/moby/pull/40877)
+
+### Client
+- Fix panic on single-character volumes. [docker/cli#2471](https://github.com/docker/cli/pull/2471)
+- Lazy daemon feature detection to avoid long timeouts on simple commands. [docker/cli#2442](https://github.com/docker/cli/pull/2442)
+- docker context inspect on Windows is now faster. [docker/cli#2516](https://github.com/docker/cli/pull/2516)
+- Bump Golang 1.13.10. [docker/cli#2431](https://github.com/docker/cli/pull/2431)
+- Bump gopkg.in/yaml.v2 to v2.2.8. [docker/cli#2470](https://github.com/docker/cli/pull/2470)
+
+### Logging
+- Avoid situation preventing container logs to rotate due to closing a closed log file. [moby/moby#40921](https://github.com/moby/moby/pull/40921)
+
+### Networking
+- Fix potential panic upon restart. [moby/moby#40809](https://github.com/moby/moby/pull/40809)
+- Assign the correct network value to the default bridge Subnet field. [moby/moby#40565](https://github.com/moby/moby/pull/40565)
+
+### Runtime
+- Fix docker crash when creating namespaces with UID in /etc/subuid and /etc/subgid. [moby/moby#40562](https://github.com/moby/moby/pull/40562)
+- Improve ARM platform matching. [moby/moby#40758](https://github.com/moby/moby/pull/40758)
+- overlay2: show backing filesystem. [moby/moby#40652](https://github.com/moby/moby/pull/40652)
+- Update CRIU to v3.13 "Silicon Willet". [moby/moby#40850](https://github.com/moby/moby/pull/40850)
+- Only show registry v2 schema1 deprecation warning upon successful fallback, as opposed to any registry error. [moby/moby#40681](https://github.com/moby/moby/pull/40681)
+- Use FILE_SHARE_DELETE for log files on Windows. [moby/moby#40563](https://github.com/moby/moby/pull/40563)
+- Bump Golang 1.13.10. [moby/moby#40803](https://github.com/moby/moby/pull/40803)
+
+### Rootless
+- Now rootlesskit-docker-proxy returns detailed error message on exposing privileged ports. [moby/moby#40863](https://github.com/moby/moby/pull/40863)
+- Supports numeric ID in /etc/subuid and /etc/subgid. [moby/moby#40951](https://github.com/moby/moby/pull/40951)
+
+### Security
+- apparmor: add missing rules for userns. [moby/moby#40564](https://github.com/moby/moby/pull/40564)
+- SElinux: fix ENOTSUP errors not being detected when relabeling. [moby/moby#40946](https://github.com/moby/moby/pull/40946)
+
+### Swarm
+- Increase refill rate for logger to avoid hanging on service logs. [moby/moby#40628](https://github.com/moby/moby/pull/40628)
+- Fix issue where single swarm manager is stuck in Down state after reboot. [moby/moby#40831](https://github.com/moby/moby/pull/40831)
+- tasks.db no longer grows indefinitely. [moby/moby#40830]
+
 ## 19.03.8
 2020-03-10
 

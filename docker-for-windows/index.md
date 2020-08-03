@@ -17,7 +17,7 @@ toc_max: 2
 
 Welcome to Docker Desktop!
 
-The _Docker Desktop for Windows_ section contains information about the Docker Desktop Community Stable release. For information about features available in Edge releases, see the [Edge release notes](edge-release-notes/). For information about Docker Desktop Enterprise (DDE) releases, see [Docker Desktop Enterprise](/desktop/enterprise/).
+The _Docker Desktop for Windows_ section contains information about the Docker Desktop Community Stable release. For information about features available in Edge releases, see the [Edge release notes](edge-release-notes.md). For information about Docker Desktop Enterprise (DDE) releases, see [Docker Desktop Enterprise](/desktop/enterprise/).
 
 Docker is a full development platform to build, run, and share containerized applications. Docker Desktop is the best way to get started with Docker _on Windows_.
 
@@ -205,11 +205,21 @@ troubleshoot the application. Clear the check box to opt out. Docker may periodi
 
 ### Resources
 
-The **Resources** tab allows you to configure CPU, memory, disk, proxies, network, and other resources.
+The **Resources** tab allows you to configure CPU, memory, disk, proxies, 
+network, and other resources. Different settings are available for 
+configuration depending on whether you are using Linux containers in WSL 2 
+mode, Linux containers in Hyper-V mode, or Windows containers.
 
 ![Resources](images/settings-resources.png){:width="750px"}
 
 #### Advanced
+
+> **Note**
+>
+> The Advanced tab is only available in Hyper-V mode, because in WSL 2 mode and 
+> Windows container mode these resources are managed by Windows. In WSL 2 
+> mode, you can configure limits on the memory, CPU, and swap size allocated
+> to the [WSL 2 utility VM](https://docs.microsoft.com/en-us/windows/wsl/release-notes#build-18945).
 
 Use the **Advanced** tab to limit resources available to Docker.
 
@@ -230,17 +240,27 @@ You can also move the disk image to a different location. If you attempt to move
 
 #### File sharing
 
-Use File sharing to allow local drives on Windows to be shared with Linux containers.
+> **Note**
+>
+> The File sharing tab is only available in Hyper-V mode, because in WSL 2 mode 
+> and Windows container mode all files are automatically shared by Windows.
+
+Use File sharing to allow local directories on Windows to be shared with Linux containers.
 This is especially useful for
 editing source code in an IDE on the host while running and testing the code in a container.
 Note that configuring file sharing is not necessary for Windows containers, only [Linux containers](#switch-between-windows-and-linux-containers).
- If a drive is not shared with a Linux container you may get `file not found` or `cannot start service` errors at runtime. See [Volume mounting requires shared drives for Linux containers](troubleshoot.md#volume-mounting-requires-shared-drives-for-linux-containers).
+ If a directory is not shared with a Linux container you may get `file not found` or `cannot start service` errors at runtime. See [Volume mounting requires shared folders for Linux containers](troubleshoot.md#volume-mounting-requires-shared-folders-for-linux-containers).
 
-**Apply & Restart** makes the drives available to containers using Docker's bind mount (`-v`) feature.
+File share settings are:
 
-> Tips on shared drives, permissions, and volume mounts
+- **Add a Directory**: Click `+` and navigate to the directory you want to add.
+
+- **Apply & Restart** makes the directory available to containers using Docker's
+  bind mount (`-v`) feature.
+
+> Tips on shared folders, permissions, and volume mounts
 >
- * Shared drives are designed to allow application code to be edited on the host while being executed in containers. For non-code items
+ * Shared folders are designed to allow application code to be edited on the host while being executed in containers. For non-code items
  such as cache directories or databases, the performance will be much better if they are stored in
  the Linux VM, using a [data volume](../storage/volumes.md)
  (named volume) or [data container](../storage/volumes.md).
@@ -250,47 +270,48 @@ Note that configuring file sharing is not necessary for Windows containers, only
 >
  * Windows presents a case-insensitive view of the filesystem to applications while Linux is case-sensitive. On Linux it is possible to create 2 separate files: `test` and `Test`, while on Windows these filenames would actually refer to the same underlying file. This can lead to problems where an app works correctly on a developer Windows machine (where the file contents are shared) but fails when run in Linux in production (where the file contents are distinct). To avoid this, Docker Desktop insists that all shared files are accessed as their original case. Therefore if a file is created called `test`, it must be opened as `test`. Attempts to open `Test` will fail with "No such file or directory". Similarly once a file called `test` is created, attempts to create a second file called `Test` will fail.
 
-#### Shared drives on demand
+#### Shared folders on demand
 
-You can share a drive "on demand" the first time a particular mount is requested.
+You can share a folder "on demand" the first time a particular folder is used by a container.
 
 If you run a Docker command from a shell with a volume mount (as shown in the
 example below) or kick off a Compose file that includes volume mounts, you get a
-popup asking if you want to share the specified drive.
+popup asking if you want to share the specified folder.
 
-You can select to **Share it**, in which case it is added your Docker Desktop [Shared Drives list](index.md#shared-drives) and available to
+You can select to **Share it**, in which case it is added your Docker Desktop Shared Folders list and available to
 containers. Alternatively, you can opt not to share it by selecting **Cancel**.
 
-![Shared drive on demand](images/shared-drive-on-demand.png){:width="600px"}
+![Shared folder on demand](images/shared-folder-on-demand.png){:width="600px"}
 
 #### Proxies
 
 Docker Desktop lets you configure HTTP/HTTPS Proxy Settings and
-automatically propagates these to Docker and to your containers.  For example,
-if you set your proxy settings to `http://proxy.example.com`, Docker uses this
-proxy when pulling containers.
+automatically propagates these to Docker. For example, if you set your proxy
+settings to `http://proxy.example.com`, Docker uses this proxy when pulling containers.
 
-When you start a container, your proxy settings propagate into the containers. For example:
+Your proxy settings, however, will not be propagated into the containers you start.
+If you wish to set the proxy settings for your containers, you need to define
+environment variables for them, just like you would do on Linux, for example:
 
 ```ps
-> docker run alpine env
+> docker run -e HTTP_PROXY=http://proxy.example.com:3128 alpine env
 
 PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 HOSTNAME=b7edf988b2b5
 TERM=xterm
 HOME=/root
 HTTP_PROXY=http://proxy.example.com:3128
-http_proxy=http://proxy.example.com:3128
-no_proxy=*.local, 169.254/16
 ```
 
-In the output above, the `HTTP_PROXY`, `http_proxy`, and `no_proxy` environment
-variables are set. When your proxy configuration changes, Docker restarts
-automatically to pick up the new settings. If you have containers that you wish
-to keep running across restarts, you should consider using
-[restart policies](/engine/reference/run/#restart-policies-restart).
+For more information on setting environment variables for running containers,
+see [Set environment variables](/engine/reference/commandline/run/#set-environment-variables--e---env---env-file).
 
 #### Network
+
+> **Note**
+>
+> The Network tab is not available in Windows container mode because networking is 
+> managed by Windows.
 
 You can configure Docker Desktop networking to work on a virtual private network (VPN). Specify a network address translation (NAT) prefix and subnet mask to enable Internet connectivity.
 
@@ -304,6 +325,21 @@ You can configure Docker Desktop networking to work on a virtual private network
 > [Networking issues](troubleshoot.md#networking-issues) in Troubleshooting.
 
 Updating these settings requires a reconfiguration and reboot of the Linux VM.
+
+#### WSL Integration
+
+In WSL 2 mode, you can configure which WSL 2 distributions will have the Docker 
+WSL integration.
+
+By default, the integration will be enabled on your default WSL distribution. 
+To change your default WSL distro, run `wsl --set-default <distro name>`. (For example, 
+to set Ubuntu as your default WSL distro, run `wsl --set-default ubuntu`).
+
+You can also select any additional distributions you would like to enable the WSL 2 
+integration on.
+
+For more details on configuring Docker Desktop to use WSL 2, see 
+[Docker Desktop WSL 2 backend](wsl.md).
 
 ### Docker Engine
 
@@ -365,6 +401,10 @@ Server: Docker Engine - Community
 ```
 
 ### Kubernetes
+
+> **Note**
+>
+> The Kubernetes tab is not available in Windows container mode.
 
 Docker Desktop includes a standalone Kubernetes server that runs on your Windows host, so that you can test deploying your Docker workloads on Kubernetes.
 
@@ -461,7 +501,7 @@ again when you switch back.
 
 ## Dashboard
 
-The Docker Desktop Dashboard enables you to interact with containers and applications and manage the lifecycle of your applications directly from your machine. The Dashboard UI shows all running, stopped, and started containers with their state. It provides an intuitive interface to perform common actions to inspect and manage containers and Docker Compose applications. For more information, see [Docker Desktop Dashboard](dashboard.md).
+The Docker Desktop Dashboard enables you to interact with containers and applications and manage the lifecycle of your applications directly from your machine. The Dashboard UI shows all running, stopped, and started containers with their state. It provides an intuitive interface to perform common actions to inspect and manage containers and Docker Compose applications. For more information, see [Docker Desktop Dashboard](../desktop/dashboard.md).
 
 ## Docker Hub
 
@@ -507,7 +547,7 @@ Docker Desktop creates a certificate bundle of all user-trusted CAs based on
 the Windows certificate store, and appends it to Moby trusted certificates. Therefore, if an enterprise SSL certificate is trusted by the user on the host, it is trusted by Docker Desktop.
 
 To learn more about how to install a CA root certificate for the registry, see
-[Verify repository client with certificates](/engine/security/certificates)
+[Verify repository client with certificates](../engine/security/certificates.md)
 in the Docker Engine topics.
 
 ### How do I add client certificates?

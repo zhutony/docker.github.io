@@ -6,11 +6,11 @@
 
 body.night {
     background-color: $bg-body-night;
-    color: $body-text-color-night;
+    color: $body-text-night;
     p,
     .rating-nero-value,
     .reading-time {
-        color: $body-text-color-night!important;
+        color: $body-text-night!important;
     }
     h1,
     h2,
@@ -30,8 +30,7 @@ body.night {
         color: #c7c9ca !important;
     }
     .header {
-        background-color: #101c29!important;
-        animation: none!important;
+        background-color: $bg-header-night;
     }
     hr {
         border-top: 1px solid #4f6071;
@@ -44,21 +43,17 @@ body.night {
         background: $bg-secondary-night;
     }
     .nav-secondary input[type=search] {
-        background: rgba(76, 76, 76, 0.47) url(/images/search.png) no-repeat;
-        background-position: 10px 9px;
+        background: rgba(76, 76, 76, 0.47) url(/images/search.png) no-repeat 10px 9px;
         color: $white;
     }
     .nav-secondary-tabs .search-form input[type=search] {
-        background: rgba(16, 28, 41, 0.6) url(/images/search.png) no-repeat;
-        background-position: 10px 9px;
+        background: rgba(16, 28, 41, 0.6) url(/images/search.png) no-repeat 10px 9px;
     }
     .nav-secondary-tabs .search-form input[type=search]:focus {
-        background: rgba(255,255,255,0.17) url(/images/search.png) no-repeat;
-        background-position: 10px 9px;
+        background: rgba(255, 255, 255, 0.17) url(/images/search.png) no-repeat 10px 9px;
     }
     .nav-secondary .search-form input[type=search]:focus {
-        background: rgba(255, 255, 255, 0.17) url(/images/search.png) no-repeat!important;
-        background-position: 10px 9px!important;
+        background: rgba(255, 255, 255, 0.17) url(/images/search.png) no-repeat 10px 9px !important;
     }
     .sidebar-home,
     .sidebar,
@@ -85,10 +80,10 @@ body.night {
     .toc-nav li a.active {
         color: $active-sidebar-night;
         background: #0a151a;
-        border-left: 4px solid #077CBC;//add to variables
+        border-left: 4px solid $primary-links//add to variables
     }
     .tabs li.active a {
-        border-bottom: 4px solid #077CBC;//add to variables
+        border-bottom: 4px solid $primary-links;//add to variables
     }
     .slider {
         background-color: #344658;
@@ -130,7 +125,7 @@ body.night {
         background: #0a121b !important;
     }
     pre>code {
-        padding: 0px;
+        padding: 0;
     }
     .nav-secondary .dropdown-btn {
         color: #d0e8ff;
@@ -150,7 +145,7 @@ body.night {
     }
     a.glossary,
         .toc-nav i.fa{
-            color: $body-text-color-night;
+            color: $body-text-night;
         }
     .component img, .component-full-icon img {
         opacity: 1;
@@ -175,7 +170,7 @@ body.night {
         background: $bg-search-results-night;
         border: 1px solid $black;
         color: $white;
-        padding: 20px 0 15px 0px;
+        padding: 20px 0 15px 0;
         margin: 10px 0 0 0;
         position: absolute;
         width: 800px;
@@ -288,7 +283,7 @@ body.night {
     }
     /** apply to images with garbled text **/
     img.white-bg {
-	  background-color: white;
+        background-color: white;
     }
 }
 
@@ -301,10 +296,10 @@ body.night {
 
 body.night {
     /* accordion */
-.panel {
-    color: #d3d4d4;
-    margin-bottom: 20px;
-    background-color: #24394c;
+    .panel {
+        color: $body-text-night;
+        margin-bottom: 20px;
+        background-color: #24394c;
     }
     .panel-default {
         border-color: #374656;
@@ -328,7 +323,6 @@ body.night {
         cursor: default;
         background-color: #4e6071;
         border: 1px solid transparent;
-        border-bottom-color: transparent;
     }
     .popover {
         color: $black;

@@ -66,8 +66,8 @@ func main() {
 	resp, err := cli.ContainerCreate(ctx, &container.Config{
 		Image: "alpine",
 		Cmd:   []string{"echo", "hello world"},
-		Tty:   true,
-	}, nil, nil, "")
+		Tty:   false,
+	}, nil, nil, nil, "")
 	if err != nil {
 		panic(err)
 	}
@@ -245,7 +245,7 @@ func main() {
 		panic(err)
 	}
 
-	containers, err := cli.ContainerList(context.Background(), types.ContainerListOptions{})
+	containers, err := cli.ContainerList(ctx, types.ContainerListOptions{})
 	if err != nil {
 		panic(err)
 	}
@@ -471,7 +471,7 @@ func main() {
 		panic(err)
 	}
 
-	images, err := cli.ImageList(context.Background(), types.ImageListOptions{})
+	images, err := cli.ImageList(ctx, types.ImageListOptions{})
 	if err != nil {
 		panic(err)
 	}

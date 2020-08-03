@@ -7,6 +7,65 @@ redirect_from:
   - /release-notes/docker-compose/
 ---
 
+## 1.26.2
+(2020-07-02)
+
+### Bug fixes
+
+- Enforced `docker-py` 4.2.2 as minimum version when installing with pip.
+
+## 1.26.1
+(2020-06-30)
+
+### Features
+
+- Bumped `docker-py` from 4.2.1 to 4.2.2.
+
+### Bug fixes
+
+- Enforced `docker-py` 4.2.1 as minimum version when installing with pip.
+
+- Fixed context load for non-docker endpoints.
+
+## 1.26.0
+(2020-06-03)
+
+### Features
+
+- Added `docker context` support.
+
+- Added missing test dependency `ddt` to `setup.py`.
+
+- Added `--attach-dependencies` to command `up` for attaching to dependencies.
+
+- Allowed compatibility option with `COMPOSE_COMPATIBILITY` environment variable.
+
+- Bumped `Pytest` to 5.3.4 and add refactor compatibility with new version.
+
+- Bumped `OpenSSL` from 1.1.1f to 1.1.1g.
+
+- Bumped `certifi` from 2019.11.28 to 2020.4.5.1.
+
+- Bumped `docker-py` from 4.2.0 to 4.2.1.
+
+### Bug fixes
+
+- Properly escaped values coming from `env_files`.
+
+- Synchronized compose-schemas with upstream (docker/cli).
+
+- Removed `None` entries on exec command.
+
+- Added `distro` package to get distro information.
+
+- Added `python-dotenv` to delegate `.env` file processing.
+
+- Stopped adjusting output on terminal width when piped into another command.
+
+- Showed an error message when `version` attribute is malformed.
+
+- Fixed HTTPS connection when `DOCKER_HOST` is remote.
+
 ## 1.25.5
 (2020-04-10)
 

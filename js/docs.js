@@ -104,7 +104,9 @@ function renderNav(docstoc) {
         }
         outputHorzTabs.push('><a href="' + docstoc.horizontalnav[i].path + '">' + docstoc.horizontalnav[i].title + "</a></li>\n");
     }
-    document.getElementById("jsTOCHorizontal").innerHTML = outputHorzTabs.join("");
+    document.querySelectorAll('.jsTOCHorizontal').forEach(function(element) {
+        element.innerHTML = outputHorzTabs.join("");
+    });
     document.getElementById("jsTOCLeftNav").innerHTML = outputLetNav.join("");
 }
 
@@ -335,17 +337,4 @@ window.onload = function () {
         var group = $(this).attr("data-group");
         $('.nav-tabs > li > a[data-group="' + group + '"]').tab("show");
     });
-
-    // isArchive is set by logic in archive.js
-    if (isArchive === false) {
-        // Hide elements that are not appropriate for archives
-        // PollDaddy
-        $("#ratings-div").css("visibility", "visible");
-        // Archive drop-down
-        $(".ctrl-right .btn-group").css("visibility", "visible");
-        // Search
-        $(".search-form").css("visibility", "visible");
-        // Page edit link
-        $(".feedback-links li").first().css("visibility", "visible");
-    }
 };

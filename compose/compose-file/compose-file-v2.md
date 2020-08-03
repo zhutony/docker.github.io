@@ -514,7 +514,7 @@ services:
   redis:
     image: redis
   db:
-    image: redis
+    image: postgres
     healthcheck:
       test: "exit 0"
 ```
@@ -714,7 +714,7 @@ extends:
   service: webapp
 ```
 
-The `service` the name of the service being extended, for example
+The `service` is the name of the service being extended, for example
 `web` or `database`. The `file` is the location of a Compose configuration
 file defining that service.
 
